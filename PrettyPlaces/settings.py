@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'PictureManager.apps.PicturemanagerConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,11 @@ WSGI_APPLICATION = 'PrettyPlaces.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pjfowbns',
+        'USER': 'pjfowbns',
+        'PASSWORD': 'kwmpkE0K2MFOjODNU7MdkvJf6RmB7oqg',
+        'HOST': 'fanny.db.elephantsql.com',
     }
 }
 
