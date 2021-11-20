@@ -7,7 +7,7 @@ class Location(models.Model):
     caption = models.CharField(max_length=200)
 
 class Picture(models.Model):
-    link = models.CharField(max_length=200)
+    link = models.CharField(max_length=10000)
     caption = models.CharField(max_length=200)
     location = models.ForeignKey(Location, on_delete = models.CASCADE)
 
