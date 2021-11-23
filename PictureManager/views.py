@@ -13,13 +13,14 @@ def home(request):
 @csrf_exempt
 def locations(request,location=None):
     #converts body into a python dict 
-    body = json.loads(request.body.decode("utf-8"))
+    if(request.body):
+        body = json.loads(request.body.decode("utf-8"))
     #gets all locations
     if request.method == 'GET':
         #if a particular locations photos are requested
         if(location):
             #attains the correct location from the DB
-            location = Location.objects.get(name=location)
+            location = Location.objects.get(name=location.replace("%20",""))
             #all pictures related to the location
             pictures = location.picture_set.all()
             pictures = list(pictures.values())
@@ -27,6 +28,9 @@ def locations(request,location=None):
         #otherwise send back all locations
         else:
             locations = list(Location.objects.values())
+            for location in locations:
+                curr_location = Location.objects.get(id=location["id"])
+                location["thumbnail"] = curr_location.picture_set.first().link
             return JsonResponse(locations, safe=False)
     
     #add a location to the DB
@@ -42,9 +46,9 @@ def locations(request,location=None):
         #the location we will be updating 
         location = Location.objects.get(id=body["id"])
         #update location attributes and save
-        location.name = body["name"]
-        location.country = body["country"]
-        location.continent = body["continent"]
+        # location.name = body["name"]
+        # location.country = body["country"]
+        # location.continent = body["continent"]
         location.caption = body["caption"]
         location.save()
         
